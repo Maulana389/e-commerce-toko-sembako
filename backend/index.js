@@ -33,9 +33,8 @@ app.use(cookieParser());
 const corsOptions = {
     origin: '*',
     credentials: true, // Add other origins if needed
-    methods: ["GET","POST","PUT","DELETE"],
 };
-
+app.options("",cors(corsOptions));
 app.use(cors(corsOptions));
 
 app.use("/api/users", userRoutes);
