@@ -14,5 +14,5 @@
   ],
   "env": {
     "DATABASE_URL": "mongodb+srv://maulbowo:kzlRkNEupe1OHKYN@cluster0.1felsfa.mongodb.net"
-  },
+  }
 }
