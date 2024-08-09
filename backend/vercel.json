@@ -11,5 +11,16 @@
       "dest": "/",
       "methods": ["GET","POST","PATCH","PUT","DELETE","OPTIONS"]
     }
-  ]
+  ],
+  "env": {
+    "DATABASE_URL": "mongodb+srv://maulbowo:kzlRkNEupe1OHKYN@cluster0.1felsfa.mongodb.net"
+  },
+  "build": {
+    "env": {
+      "DATABASE_URL": "mongodb+srv://maulbowo:kzlRkNEupe1OHKYN@cluster0.1felsfa.mongodb.net"
+    },
+    "commands": {
+      "build": "npm run build"
+    }
+  }
 }
