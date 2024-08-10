@@ -1,0 +1,132 @@
+/* Base Styles */
+#navigation-container {
+  width: 4%;
+  transition: width 0.3s ease-in-out;
+  overflow: hidden;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+#navigation-container:hover {
+  width: 15%;
+}
+
+/* Initially hide nav-item-name */
+.nav-item-name {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#navigation-container:hover .nav-item-name {
+  display: inline;
+  opacity: 1;
+}
+
+.search-input {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#navigation-container:hover .search-input {
+  display: block;
+  opacity: 1;
+}
+
+.search-icon {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+#navigation-container:hover .search-icon {
+  opacity: 0;
+}
+
+/* Responsive styles for mobile and tablets */
+@media (max-width: 1024px) {
+  #navigation-container {
+    width: 64px; /* Default collapsed width */
+  }
+
+  #navigation-container:hover {
+    width: 250px; /* Expanded width on hover */
+  }
+
+  .nav-item-name,
+  .search-input {
+    display: none; /* Hide nav-item-name and search-input by default */
+  }
+
+  #navigation-container:hover .nav-item-name,
+  #navigation-container:hover .search-input {
+    display: block; /* Show on hover */
+  }
+
+  .search-icon {
+    display: inline-block; /* Show search icon by default */
+  }
+
+  #navigation-container:hover .search-icon {
+    display: none; /* Hide search icon on hover */
+  }
+}
+
+@media (max-width: 768px) {
+  #navigation-container {
+    width: 50px; /* Default collapsed width */
+  }
+
+  #navigation-container:hover {
+    width: 200px; /* Expanded width on hover */
+  }
+
+  .nav-item-name,
+  .search-input {
+    display: none; /* Hide nav-item-name and search-input by default */
+  }
+
+  #navigation-container:hover .nav-item-name,
+  #navigation-container:hover .search-input {
+    display: block; /* Show on hover */
+  }
+
+  .search-icon {
+    display: inline-block; /* Show search icon by default */
+  }
+
+  #navigation-container:hover .search-icon {
+    display: none; /* Hide search icon on hover */
+  }
+}
+
+@media (max-width: 480px) {
+  #navigation-container {
+    width: 40px; /* Default collapsed width */
+  }
+
+  #navigation-container:hover {
+    width: 150px; /* Expanded width on hover */
+  }
+
+  .nav-item-name,
+  .search-input {
+    display: none; /* Hide nav-item-name and search-input by default */
+  }
+
+  #navigation-container:hover .nav-item-name,
+  #navigation-container:hover .search-input {
+    display: block; /* Show on hover */
+  }
+
+  .search-icon {
+    display: inline-block; /* Show search icon by default */
+  }
+
+  #navigation-container:hover .search-icon {
+    display: none; /* Hide search icon on hover */
+  }
+}
