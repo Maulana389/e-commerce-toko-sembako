@@ -28,22 +28,21 @@ app.use(cookieParser());
 const allowedOrigin = ['http://localhost:5173','https://toko-sembako-ronah.vercel.app']; // Ganti dengan asal frontend Anda
 
 const corsOptions = {
-    origin: allowedOrigin,
-    credentials: true, // Add other origins if needed
-    methods: 'GET,HEAD,OPTIONS,POST,PUT',
-    allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, origin); 
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: 'GET,HEAD,OPTIONS,POST,PUT',
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
 };
 
 
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', allowedOrigin);
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
 
 app.use("/api/users", userRoutes);
 app.use("/api/category", categoryRoutes);
