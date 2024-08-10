@@ -7,7 +7,7 @@ import cors from 'cors';
 
 
 // Utiles
-import connectDB from "./config/db.js";
+import connectDB from "config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
@@ -31,10 +31,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: '*',
     credentials: true, // Add other origins if needed
 };
-
+app.options("",cors(corsOptions));
 app.use(cors(corsOptions));
 
 app.use("/api/users", userRoutes);
@@ -46,7 +46,9 @@ app.use("/api/orders", orderRoutes);
 app.get("/api/config/paypal", (req, res) => {
   res.send({ clientId: process.env.PAYPAL_CLIENT_ID });
 });
-
+app.get("/",(req,res)=>{
+    res.json("hello world");
+})
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
 

@@ -6,11 +6,14 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "backend": "nodemon index.js"
+    "backend": "nodemon index.js",
+    "postinstall": "npm install",
+    "build": "npm install && node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.6",
     "@paypal/react-paypal-js": "^8.5.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.4.0",
