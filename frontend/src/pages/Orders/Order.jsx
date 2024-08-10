@@ -36,7 +36,7 @@ const Order = () => {
 
   const handlePayment = async (orderId) => {
     try {
-      const { data } = await axios.post('/api/orders/midtrans', { orderId });
+      const { data } = await axios.post('https://toko-sembako-ronah.vercel.app/api/orders/midtrans', { orderId });
       window.snap.pay(data.token, {
         onSuccess: function(result) {
           console.log(result);
