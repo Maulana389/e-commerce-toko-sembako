@@ -8,7 +8,7 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, '/backend/uploads/');
+    cb(null, 'uploads/');
   },
   filename: (req, file, cb) => {
     const extname = path.extname(file.originalname);
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
         });
 
         // Hapus file lokal setelah diunggah ke Cloudinary
-        fs.unlinkSync(req.file.path);
+        fs.unlink(req.file.path);
 
         res.status(200).send({
           message: 'Image uploaded successfully',
