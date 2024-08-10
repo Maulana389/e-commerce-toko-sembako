@@ -29,7 +29,7 @@ const allowedOrigin = ['http://localhost:5173','https://toko-sembako-ronah.verce
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
+    if (allowedOrigin.includes(origin) || !origin) {
       callback(null, origin); 
     } else {
       callback(new Error('Not allowed by CORS'));
