@@ -25,7 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const allowedOrigin = 'http://localhost:5173'; // Ganti dengan asal frontend Anda
+const allowedOrigin = ['http://localhost:5173','https://toko-sembako-ronah.vercel.app']; // Ganti dengan asal frontend Anda
 
 const corsOptions = {
     origin: allowedOrigin,
