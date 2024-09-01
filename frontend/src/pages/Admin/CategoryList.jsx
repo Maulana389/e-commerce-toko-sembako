@@ -73,6 +73,7 @@ const CategoryList = () => {
       } else {
         toast.success(`${result.name} is updated`);
         setSelectedCategory(null);
+        refetch();
         setUpdatingName("");
         setModalVisible(false);
       }
@@ -90,6 +91,7 @@ const CategoryList = () => {
       } else {
         toast.success(`${result.name} is deleted.`);
         setSelectedCategory(null);
+        refetch();
         setModalVisible(false);
       }
     } catch (error) {
