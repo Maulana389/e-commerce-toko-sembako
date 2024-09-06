@@ -1,6 +1,7 @@
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
 import midtransClient from "midtrans-client";
+import mongoose from 'mongoose';
 
 // Utility Function
 function calcPrices(orderItems) {
@@ -56,6 +57,12 @@ const createOrder = async (req, res) => {
         throw new Error(`Product not found: ${itemFromClient._id}`);
       }
 
+      // Periksa apakah stok mencukupi
+      if (matchingItemFromDB.countInStock < itemFromClient.qty) {
+        res.status(400);
+        throw new Error(`Insufficient stock for product: ${matchingItemFromDB.name}`);
+      }
+
       return {
         ...itemFromClient,
         product: itemFromClient._id,
@@ -77,12 +84,40 @@ const createOrder = async (req, res) => {
       totalPrice,
     });
 
-    const createdOrder = await order.save();
-    res.status(201).json(createdOrder);
+    // Mulai sesi transaksi
+    const session = await mongoose.startSession();
+    session.startTransaction();
+
+    try {
+      
+      // Kurangi stok untuk setiap item yang dibeli
+      for (const item of dbOrderItems) {
+        await Product.findByIdAndUpdate(
+          item.product,
+          { $inc: { countInStock: - item.qty, quantity: item.qty },
+        },
+          { session }
+        );
+        console.log(`Stok untuk produk ${item.product} berkurang sebanyak ${item.qty}`);
+      }
+      
+      const createdOrder = await order.save({ session });
+      // Commit transaksi
+      await session.commitTransaction();
+      session.endSession();
+
+      res.status(201).json(createdOrder);
+    } catch (error) {
+      // Jika terjadi kesalahan, batalkan transaksi
+      await session.abortTransaction();
+      session.endSession();
+      throw error;
+    }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 const paymentMidtrans = async(req,res) => {
   try {
@@ -174,6 +209,9 @@ const calcualteTotalSalesByDate = async (req, res) => {
           },
           totalSales: { $sum: "$totalPrice" },
         },
+      },
+      {
+        $sort: { _id: 1 }
       },
     ]);
 
