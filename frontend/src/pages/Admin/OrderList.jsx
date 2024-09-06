@@ -6,7 +6,9 @@ import AdminMenu from "./AdminMenu";
 
 const OrderList = () => {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
-
+  const sortedOrders = orders
+  ? orders.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+  : [];
   return (
     <>
       {isLoading ? (
@@ -33,7 +35,7 @@ const OrderList = () => {
           </thead>
 
           <tbody>
-            {orders.map((order) => (
+            {sortedOrders.map((order) => (
               <tr key={order._id}>
                 <td>
                   <img
